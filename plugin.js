@@ -15,10 +15,8 @@ const plugin = async (fastify, options) => {
   const connectionString = `mssql://${user}:${password}@${host}:${port}/${database}`;
   const pool = await new MSSql.ConnectionPool(connectionString);
 
-  fastify.addHook('onClose', async (fastify, done) => {
+  fastify.addHook('onClose', async () => {
     await pool.close();
-    done();
-
   });
   fastify.decorate('mssql', { pool })
 };

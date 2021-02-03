@@ -1,8 +1,18 @@
-# MSSQL Plugin for Fastify
+# fastify-mssql
 
-This plugin exposes the `MSSQL.ConnectionPool` to the fastify instance
+Fastify MSSQL Plugin
+
+## Installation
+
+Just run
+
+```
+npm install fastify-mssql
+```
 
 ## Usage
+
+### Example
 
 ```
 const Fastify = require('fastify')

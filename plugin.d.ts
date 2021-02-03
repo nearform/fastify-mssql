@@ -1,13 +1,13 @@
 import * as MSSql from 'mssql'
 
-import { FastifyPluginAsync } from 'fastify';
+import { FastifyInstance, FastifyPluginAsync } from 'fastify';
 
 export interface MSSQLPluginOptions {
-  host: string
-  port: number
-  user: string
-  password: string
-  database: string
+  host?: string
+  port?: number
+  user?: string
+  password?: string
+  database?: string
 }
 
 export interface MSSQLFastifyInterface {
@@ -20,7 +20,7 @@ declare module 'fastify' {
   }
 }
 
-declare const fastifyMssql: FastifyPluginAsync
+declare const fastifyMssql: FastifyPluginAsync<MSSQLPluginOptions>
 
 export default fastifyMssql
 export { fastifyMssql }
