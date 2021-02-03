@@ -1,0 +1,25 @@
+{
+  "name": "fastify-mssql",
+  "version": "0.1.0",
+  "description": "Fastify Plugin to manage MSSQL connections",
+  "main": "plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fastify",
+    "mssql",
+    "database"
+  ],
+  "author": "Leonardo Rossi <leonardo.rossi@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.11.0",
+    "fastify-plugin": "^3.0.0",
+    "mssql": "^6.3.1"
+  },
+  "devDependencies": {
+    "@types/mssql": "^6.0.7"
+  },
+  "types": "plugin.d.ts"
+}
