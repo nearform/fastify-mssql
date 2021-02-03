@@ -3,7 +3,7 @@ import * as MSSql from 'mssql'
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
 
 export interface MSSQLPluginOptions {
-  host?: string
+  server?: string
   port?: number
   user?: string
   password?: string

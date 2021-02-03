@@ -2,7 +2,7 @@ const fp = require('fastify-plugin');
 const MSSql = require('mssql');
 
 const defaults = {
-  host: 'localhost',
+  server: 'localhost',
   port: 1433,
   user: 'sa',
   password: '',
@@ -11,9 +11,13 @@ const defaults = {
 
 const plugin = async (fastify, options) => {
   const config = Object.assign({}, defaults, options)
-  const { host, port, database, user, password } = config;
-  const connectionString = `mssql://${user}:${password}@${host}:${port}/${database}`;
-  const pool = await new MSSql.ConnectionPool(connectionString);
+  const { server, port, database, user, password } = config;
+
+  config.options = {
+    'enableArithAbort': true
+  }
+
+  const pool = await new MSSql.ConnectionPool(config);
 
   fastify.addHook('onClose', async () => {
     await pool.close();

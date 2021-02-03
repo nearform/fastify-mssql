@@ -32,14 +32,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install mssql-cli
           sudo apt-get install -f
+          mssql-cli -S localhost -U sa -P S3cretP4ssw0rd! --query "CREATE DATABASE [fastify];"
           mssql-cli -S localhost -U sa -P S3cretP4ssw0rd! --query "CREATE TABLE [dbo].[users] ([id] bigint, [name] varchar, [email] varchar, PRIMARY KEY (id));"
           mssql-cli -S localhost -U sa -P S3cretP4ssw0rd! --query "INSERT INTO [dbo].[users] ([id], [name], [email]) VALUES ('1', N'foobar', N'foobar@gmail.com ');"
           mssql-cli -S localhost -U sa -P S3cretP4ssw0rd! --query "INSERT INTO [dbo].[users] ([id], [name], [email]) VALUES ('1', N'fizzbuzz', N'fizzbuzz@gmail.com ');"
       - name: Install
         run: npm install
 
-      # - name: Run tests
-      #   run: npm run test
+      - name: Run tests
+        run: npm run test
 
   automerge:
     needs: build
