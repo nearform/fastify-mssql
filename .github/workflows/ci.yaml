@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [10, 12, 14]
@@ -22,20 +22,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
 
-      # - name: CI environment setup
-      #   run: |
-      #     curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-      #     sudo apt-add-repository https://packages.microsoft.com/ubuntu/18.04/prod
-      #     sudo apt-get update
-      #     sudo apt-get install mssql-cli
-      #     sudo apt-get install -f
-      #     mssql-cli -S localhost -U sa -P S3cretP4ssw0rd! --query "CREATE DATABASE [fastify];"
-      #     mssql-cli -S localhost -U sa -P S3cretP4ssw0rd! --query "CREATE TABLE [dbo].[users] ([id] bigint, [name] varchar, [email] varchar, PRIMARY KEY (id));"
-      #     mssql-cli -S localhost -U sa -P S3cretP4ssw0rd! --query "INSERT INTO [dbo].[users] ([id], [name], [email]) VALUES ('1', N'foobar', N'foobar@gmail.com ');"
-      #     mssql-cli -S localhost -U sa -P S3cretP4ssw0rd! --query "INSERT INTO [dbo].[users] ([id], [name], [email]) VALUES ('1', N'fizzbuzz', N'fizzbuzz@gmail.com ');"
       - name: Install
         run: npm install
 
