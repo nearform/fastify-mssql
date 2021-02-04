@@ -1,3 +1,5 @@
+'use strict';
+
 const fp = require('fastify-plugin');
 const MSSql = require('mssql');
 
