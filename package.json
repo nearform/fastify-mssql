@@ -6,6 +6,9 @@
   "scripts": {
     "test": "jest"
   },
+  "engines": {
+    "node": ">=10"
+  },
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -19,6 +22,14 @@
     "database"
   ],
   "author": "Leonardo Rossi <leonardo.rossi@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nearform/fastify-mssql.git"
+  },
+  "homepage": "https://github.com/nearform/fastify-mssql#readme",
+  "bugs": {
+    "url": "https://github.com/nearform/fastify-mssql/issues"
+  },
   "dependencies": {
     "fastify": "^3.11.0",
     "fastify-plugin": "^3.0.0",
