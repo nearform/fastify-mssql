@@ -23,7 +23,7 @@ const app = Fastify({
 
 const mssqlPlugin = require('fastify-mssql')
 app.register(mssqlPlugin, {
-  host: 'my-host',
+  server: 'my-host',
   port: 1433,
   user: 'my-user',
   password: 'my-password',
