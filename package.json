@@ -38,7 +38,7 @@
     "@types/mssql": "^6.0.7",
     "fastify": "^3.11.0",
     "jest": "^26.6.3",
-    "mssql": "^6.3.1"
+    "mssql": "^7.0.0"
   },
   "peerDependencies": {
     "mssql": ">=6.0.0"
