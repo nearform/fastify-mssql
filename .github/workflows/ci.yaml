@@ -21,7 +21,7 @@ jobs:
           - 1433:1433
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Install
         run: npm install
