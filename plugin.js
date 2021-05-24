@@ -19,7 +19,7 @@ const plugin = async (fastify, options) => {
     'enableArithAbort': true
   }
 
-  const pool = await new MSSql.ConnectionPool(config);
+  const pool = await new MSSql.ConnectionPool(config).connect();
 
   fastify.addHook('onClose', async () => {
     await pool.close();
