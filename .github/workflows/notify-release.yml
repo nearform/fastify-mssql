@@ -2,7 +2,7 @@ name: notify-release
 on:
   workflow_dispatch:
     branches:
-      - main
+      - master
   schedule:
     - cron: '30 8 * * *'
 jobs:
