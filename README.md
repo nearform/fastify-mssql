@@ -1,10 +1,8 @@
 # fastify-mssql
 
-Fastify MSSQL Plugin
+MSSQL Plugin for Fastify.
 
 ## Installation
-
-Just run
 
 ```
 npm install fastify-mssql
@@ -14,15 +12,13 @@ npm install fastify-mssql
 
 ### Example
 
-```
+```js
 const Fastify = require('fastify')
+const mssql = require('fastify-mssql')
 
-const app = Fastify({
-  logger: true
-})
+const app = Fastify()
 
-const mssqlPlugin = require('fastify-mssql')
-app.register(mssqlPlugin, {
+app.register(mssql, {
   server: 'my-host',
   port: 1433,
   user: 'my-user',
