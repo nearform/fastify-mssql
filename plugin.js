@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const fp = require('fastify-plugin');
-const MSSql = require('mssql');
+const fp = require('fastify-plugin')
+const MSSql = require('mssql')
 
 const defaults = {
   server: 'localhost',
@@ -10,24 +10,23 @@ const defaults = {
   password: '',
   database: ''
 }
+const defaultOptions = {
+  enableArithAbort: true
+}
 
-const plugin = async (fastify, options) => {
-  const config = Object.assign({}, defaults, options)
-  const { server, port, database, user, password } = config;
+const plugin = async (fastify, config) => {
+  const connectionConfig = Object.assign({}, defaults, config)
+  connectionConfig.options = Object.assign({}, defaultOptions, config.options)
 
-  config.options = {
-    'enableArithAbort': true
-  }
-
-  const pool = await new MSSql.ConnectionPool(config);
+  const pool = await new MSSql.ConnectionPool(connectionConfig)
 
   fastify.addHook('onClose', async () => {
-    await pool.close();
-  });
+    await pool.close()
+  })
   fastify.decorate('mssql', { pool })
-};
+}
 
 module.exports = fp(plugin, {
   fastify: '>=3',
-  name: 'fastify-mssql',
-});
+  name: 'fastify-mssql'
+})

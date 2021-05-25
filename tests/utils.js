@@ -1,5 +1,5 @@
-const MSSql = require('mssql');
-let pool;
+const MSSql = require('mssql')
+let pool
 
 async function getPool() {
   if (!pool) {
@@ -10,15 +10,16 @@ async function getPool() {
       //database: 'fastify',
       password: 'S3cretP4ssw0rd!',
       options: {
-        'enableArithAbort': true
+        enableArithAbort: true,
+        trustServerCertificate: true
       }
     }
     pool = await new MSSql.ConnectionPool(config)
   }
   if (!pool.connected) {
-    await pool.connect();
+    await pool.connect()
   }
-  return pool;
+  return pool
 }
 
 module.exports = { getPool }

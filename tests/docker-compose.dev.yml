@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  mssql:
+    container_name: fastify_mssql_service
+    image: mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: S3cretP4ssw0rd!

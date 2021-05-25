@@ -4,7 +4,10 @@
   "description": "Fastify Plugin to manage MSSQL connections",
   "main": "plugin.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --testTimeout=15000",
+    "lint": "eslint .",
+    "test:docker:start": "docker-compose -f tests/docker-compose.dev.yml up -d",
+    "test:docker:stop": "docker-compose -f tests/docker-compose.dev.yml stop"
   },
   "engines": {
     "node": ">=10"
@@ -36,9 +39,14 @@
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/mssql": "^6.0.7",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-prettier": "^3.4.0",
     "fastify": "^3.11.0",
     "jest": "^26.6.3",
-    "mssql": "^6.3.1"
+    "mssql": "^7.1.0",
+    "prettier": "^2.3.0"
   },
   "peerDependencies": {
     "mssql": ">=6.0.0"
