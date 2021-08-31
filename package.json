@@ -42,7 +42,7 @@
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.3",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "fastify": "^3.11.0",
     "jest": "^27.0.1",
     "mssql": "^7.1.0",
