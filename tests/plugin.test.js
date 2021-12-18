@@ -53,14 +53,41 @@ describe('fastify-mssql', () => {
         return { error: err.message }
       }
     })
-    const response = await app.inject({
-      method: 'GET',
-      url: '/users'
+
+    app.get('/users/:userId', async function (request) {
+      try {
+        const pool = await app.mssql.pool.connect()
+        const query = 'SELECT * FROM [dbo].[Users] where id=@userID;'
+        const res = await pool
+          .request()
+          .input('userID', app.sqlTypes.Int, request.params.userId)
+          .query(query)
+        return { user: res.recordset }
+      } catch (err) {
+        return { error: err.message }
+      }
     })
 
-    const body = JSON.parse(response.body)
-    expect(app.mssql.pool).not.toBe(undefined)
-    expect(response.statusCode).toBe(200)
-    expect(body.users.length).toBe(2)
+    {
+      const response = await app.inject({
+        method: 'GET',
+        url: '/users'
+      })
+      const body = JSON.parse(response.body)
+      expect(app.mssql.pool).not.toBe(undefined)
+      expect(response.statusCode).toBe(200)
+      expect(body.users.length).toBe(2)
+    }
+
+    {
+      const response = await app.inject({
+        method: 'GET',
+        url: '/users/2'
+      })
+      expect(response.statusCode).toBe(200)
+      expect(response.json()).toEqual({
+        user: [{ id: '2', name: 'fizzbuzz', email: 'fizzbuzz@gmail.com' }]
+      })
+    }
   })
 })

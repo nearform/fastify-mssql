@@ -24,6 +24,7 @@ const plugin = async (fastify, config) => {
     await pool.close()
   })
   fastify.decorate('mssql', { pool })
+  fastify.decorate('sqlTypes', MSSql)
 }
 
 module.exports = fp(plugin, {
