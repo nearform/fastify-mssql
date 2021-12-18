@@ -38,3 +38,21 @@ app.get('/users', async function (req, reply) {
 
 app.listen(3000)
 ```
+
+If you need to access the [SQL Data Types](https://github.com/tediousjs/node-mssql#data-types) you can access them by using the `sqlTypes` decorator:
+
+```js
+app.get('/users/:userId', async function (request) {
+  try {
+    const pool = await app.mssql.pool.connect()
+    const query = 'SELECT * FROM users where id=@userID'
+    const res = await pool
+      .request()
+      .input('userID', app.sqlTypes.Int, request.params.userId)
+      .query(query)
+    return { user: res.recordset }
+  } catch (err) {
+    return { error: err.message }
+  }
+})
+```
