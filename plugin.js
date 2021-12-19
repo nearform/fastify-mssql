@@ -23,8 +23,10 @@ const plugin = async (fastify, config) => {
   fastify.addHook('onClose', async () => {
     await pool.close()
   })
-  fastify.decorate('mssql', { pool })
-  fastify.decorate('sqlTypes', MSSql)
+  fastify.decorate('mssql', {
+    pool,
+    sqlTypes: MSSql
+  })
 }
 
 module.exports = fp(plugin, {

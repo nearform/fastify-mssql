@@ -60,7 +60,7 @@ describe('fastify-mssql', () => {
         const query = 'SELECT * FROM [dbo].[Users] where id=@userID;'
         const res = await pool
           .request()
-          .input('userID', app.sqlTypes.Int, request.params.userId)
+          .input('userID', app.mssql.sqlTypes.Int, request.params.userId)
           .query(query)
         return { user: res.recordset }
       } catch (err) {
