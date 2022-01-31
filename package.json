@@ -45,7 +45,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "fastify": "^3.11.0",
     "jest": "^27.0.1",
-    "mssql": "^7.1.0",
+    "mssql": "^8.0.1",
     "prettier": "^2.3.0"
   },
   "peerDependencies": {
