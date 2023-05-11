@@ -1,6 +1,6 @@
 {
   "name": "fastify-mssql",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Fastify Plugin to manage MSSQL connections",
   "main": "plugin.js",
   "scripts": {
