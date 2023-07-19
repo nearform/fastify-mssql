@@ -2,13 +2,7 @@ import * as MSSql from 'mssql'
 
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
 
-export interface MSSQLPluginOptions {
-  server?: string
-  port?: number
-  user?: string
-  password?: string
-  database?: string
-}
+export interface MSSQLPluginOptions extends MSSql.config {}
 
 export interface MSSQLFastifyInterface {
   pool: MSSql.ConnectionPool,
