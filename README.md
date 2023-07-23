@@ -8,6 +8,12 @@ MSSQL Plugin for Fastify.
 npm install fastify-mssql
 ```
 
+You will also need to have mssql dependency installed and @types/mssql when you are using TypeScript.
+
+```
+npm install mssql @types/mssql
+```
+
 ## Usage
 
 ### Example
