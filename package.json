@@ -39,7 +39,7 @@
   "devDependencies": {
     "@types/jest": "^29.0.0",
     "@types/mssql": "^9.1.1",
-    "eslint": "^8.0.1",
+    "eslint": "^9.2.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.23.3",
     "eslint-plugin-prettier": "^5.0.0",
