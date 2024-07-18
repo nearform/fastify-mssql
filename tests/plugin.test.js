@@ -5,11 +5,12 @@ const plugin = require('../plugin.js')
 const { getPool } = require('./utils')
 
 describe('fastify-mssql', () => {
-  let app
+  let app, app2
 
   beforeAll(async () => {
     const pool = await getPool()
     app = buildServer()
+    app2 = buildServer()
     await pool.query(`
       IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'TestSuite')
         CREATE DATABASE TestSuite;
@@ -32,6 +33,7 @@ describe('fastify-mssql', () => {
     await pool.query('DROP TABLE IF EXISTS [dbo].[Users]')
     await pool.close()
     app.close()
+    app2.close()
   })
 
   test('MSSQL plugin is loaded', async () => {
@@ -81,6 +83,64 @@ describe('fastify-mssql', () => {
 
     {
       const response = await app.inject({
+        method: 'GET',
+        url: '/users/2'
+      })
+      expect(response.statusCode).toBe(200)
+      expect(response.json()).toEqual({
+        user: [{ id: '2', name: 'fizzbuzz', email: 'fizzbuzz@gmail.com' }]
+      })
+    }
+  })
+
+  test('MSSQL plugin is loaded with db1', async () => {
+    app2.register(plugin, {
+      decorate: 'db1',
+      user: 'sa',
+      password: 'S3cretP4ssw0rd!',
+      database: 'TestSuite',
+      options: {
+        trustServerCertificate: true
+      }
+    })
+
+    app2.get('/users', async function () {
+      try {
+        await app2.db1.pool.connect()
+        const res = await app2.db1.pool.query('SELECT * FROM [dbo].[Users];')
+        return { users: res.recordset }
+      } catch (err) {
+        return { error: err.message }
+      }
+    })
+
+    app2.get('/users/:userId', async function (request) {
+      try {
+        const pool = await app2.db1.pool.connect()
+        const query = 'SELECT * FROM [dbo].[Users] where id=@userID;'
+        const res = await pool
+          .request()
+          .input('userID', app2.db1.sqlTypes.Int, request.params.userId)
+          .query(query)
+        return { user: res.recordset }
+      } catch (err) {
+        return { error: err.message }
+      }
+    })
+
+    {
+      const response = await app2.inject({
+        method: 'GET',
+        url: '/users'
+      })
+      const body = JSON.parse(response.body)
+      expect(app2.db1.pool).not.toBe(undefined)
+      expect(response.statusCode).toBe(200)
+      expect(body.users.length).toBe(2)
+    }
+
+    {
+      const response = await app2.inject({
         method: 'GET',
         url: '/users/2'
       })
