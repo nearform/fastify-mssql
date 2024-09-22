@@ -4,6 +4,7 @@ const fp = require('fastify-plugin')
 const MSSql = require('mssql')
 
 const defaults = {
+  decorate: 'mssql',
   server: 'localhost',
   port: 1433,
   user: 'sa',
@@ -23,7 +24,7 @@ const plugin = async (fastify, config) => {
   fastify.addHook('onClose', async () => {
     await pool.close()
   })
-  fastify.decorate('mssql', {
+  fastify.decorate(connectionConfig.decorate, {
     pool,
     sqlTypes: MSSql
   })
