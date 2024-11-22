@@ -1,4 +1,5 @@
 const { describe, before, after, test } = require('node:test')
+const assert = require('node:assert')
 const buildServer = require('./build-server')
 
 const plugin = require('../plugin.js')
@@ -70,24 +71,24 @@ describe('fastify-mssql', () => {
   })
 
   describe('MSSQL plugin is loaded', () => {
-    test('correctly return users', async (t) => {
+    test('correctly return users', async () => {
       const response = await app.inject({
         method: 'GET',
         url: '/users'
       })
       const body = JSON.parse(response.body)
-      t.assert.ok(app.mssql.pool)
-      t.assert.deepStrictEqual(response.statusCode, 200)
-      t.assert.deepStrictEqual(body.users.length, 2)
+      assert.ok(app.mssql.pool)
+      assert.deepStrictEqual(response.statusCode, 200)
+      assert.deepStrictEqual(body.users.length, 2)
     })
 
-    test('correctly return user', async (t) => {
+    test('correctly return user', async () => {
       const response = await app.inject({
         method: 'GET',
         url: '/users/2'
       })
-      t.assert.deepStrictEqual(response.statusCode, 200)
-      t.assert.deepStrictEqual(response.json(), {
+      assert.deepStrictEqual(response.statusCode, 200)
+      assert.deepStrictEqual(response.json(), {
         user: [{ id: '2', name: 'fizzbuzz', email: 'fizzbuzz@gmail.com' }]
       })
     })
