@@ -1,3 +1,4 @@
+const { describe, before, after, test } = require('node:test')
 const buildServer = require('./build-server')
 
 const plugin = require('../plugin.js')
@@ -7,7 +8,7 @@ const { getPool } = require('./utils')
 describe('fastify-mssql', () => {
   let app
 
-  beforeAll(async () => {
+  before(async () => {
     const pool = await getPool()
     app = buildServer()
     await pool.query(`
@@ -26,7 +27,7 @@ describe('fastify-mssql', () => {
     )
   })
 
-  afterAll(async () => {
+  after(async () => {
     const pool = await getPool()
     await pool.query(`USE TestSuite`)
     await pool.query('DROP TABLE IF EXISTS [dbo].[Users]')
@@ -34,7 +35,7 @@ describe('fastify-mssql', () => {
     app.close()
   })
 
-  test('MSSQL plugin is loaded', async () => {
+  test('MSSQL plugin is loaded', async (t) => {
     app.register(plugin, {
       user: 'sa',
       password: 'S3cretP4ssw0rd!',
@@ -74,9 +75,9 @@ describe('fastify-mssql', () => {
         url: '/users'
       })
       const body = JSON.parse(response.body)
-      expect(app.mssql.pool).not.toBe(undefined)
-      expect(response.statusCode).toBe(200)
-      expect(body.users.length).toBe(2)
+      t.assert.ok(app.mssql.pool)
+      t.assert.deepStrictEqual(response.statusCode, 200)
+      t.assert.deepStrictEqual(body.users.length, 2)
     }
 
     {
@@ -84,8 +85,8 @@ describe('fastify-mssql', () => {
         method: 'GET',
         url: '/users/2'
       })
-      expect(response.statusCode).toBe(200)
-      expect(response.json()).toEqual({
+      t.assert.deepStrictEqual(response.statusCode, 200)
+      t.assert.deepStrictEqual(response.json(), {
         user: [{ id: '2', name: 'fizzbuzz', email: 'fizzbuzz@gmail.com' }]
       })
     }
